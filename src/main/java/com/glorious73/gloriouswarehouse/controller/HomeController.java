@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloWorldController {
+public class HomeController {
     @RequestMapping("/")
-    public String HelloWorld() {
+    public String Main() {
         return "Hello world from Spring Boot!";
     }
 }
