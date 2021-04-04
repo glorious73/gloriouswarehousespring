@@ -59,6 +59,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>gloriouswarehouse</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
