@@ -42,6 +42,8 @@ public class ItemService {
                     Item itemToBeUpdated = itemRepository.findById(i.getId()).get();
                     itemToBeUpdated.setName(item.getName());
                     itemToBeUpdated.setSerialNumber(item.getSerialNumber());
+                    itemToBeUpdated.setQuantity(item.getQuantity());
+                    itemToBeUpdated.setBase64Image(item.getBase64Image());
                     itemRepository.save(itemToBeUpdated);
                 });
                 return "Item record updated.";
