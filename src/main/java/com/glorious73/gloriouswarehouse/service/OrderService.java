@@ -60,6 +60,12 @@ public class OrderService {
         }
     }
 
+    public List<Order> readOrders() {
+        return orderRepository.findAll();
+    }
+
+    // No Edit and Delete methods to maintain the integrity of the system.
+
     private boolean validateOrderItems(OrderDTO orderDTO) {
         try {
             for (ItemDTO itemDTO: orderDTO.items) {
