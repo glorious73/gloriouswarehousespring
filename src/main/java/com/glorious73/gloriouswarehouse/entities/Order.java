@@ -12,7 +12,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDateTime dateTime;
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="order",targetEntity=Item.class)
+    @OneToMany(cascade= CascadeType.ALL, mappedBy="order",targetEntity=OrderDetail.class)
     @JsonManagedReference(value="order")
     private Collection<OrderDetail> orderDetails;
 

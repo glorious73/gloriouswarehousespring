@@ -1,6 +1,7 @@
 package com.glorious73.gloriouswarehouse.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -10,16 +11,24 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @JoinColumn(name="order_id")
+    @ManyToOne @JoinColumn(name="order_id")
     @JsonBackReference(value="order")
     private Order order;
-    @ManyToOne
-    @JoinColumn(name="item_id")
-    @JsonBackReference(value="item")
+    @ManyToOne @JoinColumn(name="item_id", referencedColumnName = "id")
+    @JsonIgnore
     private Item item;
+    // Relationship fields
     private int itemQuantity;
     private double totalPrice;
+
+    public OrderDetail() { }
+
+    public OrderDetail(Order order, Item item, int itemQuantity, double totalPrice) {
+        this.order        = order;
+        this.item         = item;
+        this.itemQuantity = itemQuantity;
+        this.totalPrice   = totalPrice;
+    }
 
     public int getId() {
         return id;

@@ -1,6 +1,7 @@
 package com.glorious73.gloriouswarehouse.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -23,8 +24,8 @@ public class Item {
     @ManyToOne @JoinColumn(name="category_id")
     @JsonBackReference(value="category")
     private Category category;
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="item",targetEntity=Item.class)
-    @JsonManagedReference(value="item")
+    @OneToMany(cascade= CascadeType.ALL, mappedBy="item",targetEntity=OrderDetail.class)
+    @JsonIgnore
     private Collection<OrderDetail> orderDetails;
 
     public Item() { }
