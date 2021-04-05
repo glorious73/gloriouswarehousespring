@@ -34,18 +34,15 @@ public class ItemService {
     }
 
     @Transactional
-    public String updateItem(Item item){
-        if (itemRepository.existsBySerialNumber(item.getSerialNumber())){
+    public String updateItem(Item item, int id){
+        if (itemRepository.existsById(id)){
             try {
-                List<Item> items = itemRepository.findBySerialNumber(item.getSerialNumber());
-                items.stream().forEach(i -> {
-                    Item itemToBeUpdated = itemRepository.findById(i.getId()).get();
-                    itemToBeUpdated.setName(item.getName());
-                    itemToBeUpdated.setSerialNumber(item.getSerialNumber());
-                    itemToBeUpdated.setQuantity(item.getQuantity());
-                    itemToBeUpdated.setBase64Image(item.getBase64Image());
-                    itemRepository.save(itemToBeUpdated);
-                });
+                Item itemToBeUpdated = itemRepository.findById(id).get();
+                itemToBeUpdated.setName(item.getName());
+                itemToBeUpdated.setSerialNumber(item.getSerialNumber());
+                itemToBeUpdated.setQuantity(item.getQuantity());
+                itemToBeUpdated.setBase64Image(item.getBase64Image());
+                itemRepository.save(itemToBeUpdated);
                 return "Item record updated.";
             } catch (Exception e){
                 throw e;
@@ -55,13 +52,11 @@ public class ItemService {
     }
 
     @Transactional
-    public String deleteItem(Item item){
-        if (itemRepository.existsBySerialNumber(item.getSerialNumber())){
+    public String deleteItem(int id){
+        if (itemRepository.existsById(id)){
             try {
-                List<Item> items = itemRepository.findBySerialNumber(item.getSerialNumber());
-                items.stream().forEach(i -> {
-                    itemRepository.delete(i);
-                });
+                Item item = itemRepository.findById(id).get();
+                itemRepository.delete(item);
                 return "Item record deleted successfully.";
             } catch (Exception e){
                 throw e;

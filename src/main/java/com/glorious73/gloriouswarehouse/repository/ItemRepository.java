@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
+    public boolean existsById(int id);
     public boolean existsBySerialNumber(String serialNumber);
 
     public List<Item> findByName(String name);

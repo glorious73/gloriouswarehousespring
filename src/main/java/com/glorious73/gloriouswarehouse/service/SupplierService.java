@@ -3,7 +3,9 @@ package com.glorious73.gloriouswarehouse.service;
 import com.glorious73.gloriouswarehouse.entities.Supplier;
 import com.glorious73.gloriouswarehouse.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -34,17 +36,14 @@ public class SupplierService {
     }
 
     @Transactional
-    public String updateSupplier(Supplier supplier){
-        if (supplierRepository.existsBySocialSecurityNumber(supplier.getSocialSecurityNumber())){
+    public String updateSupplier(Supplier supplier, int id){
+        if (supplierRepository.existsById(id)) {
             try {
-                List<Supplier> suppliers = supplierRepository.findBySocialSecurityNumber(supplier.getSocialSecurityNumber());
-                suppliers.stream().forEach(i -> {
-                    Supplier supplierToBeUpdated = supplierRepository.findById(i.getId()).get();
-                    supplierToBeUpdated.setFirstName(supplier.getFirstName());
-                    supplierToBeUpdated.setLastName(supplier.getLastName());
-                    supplierToBeUpdated.setSocialSecurityNumber(supplier.getSocialSecurityNumber());
-                    supplierRepository.save(supplierToBeUpdated);
-                });
+                Supplier supplierToBeUpdated = supplierRepository.findById(id).get();
+                supplierToBeUpdated.setFirstName(supplier.getFirstName());
+                supplierToBeUpdated.setLastName(supplier.getLastName());
+                supplierToBeUpdated.setSocialSecurityNumber(supplier.getSocialSecurityNumber());
+                supplierRepository.save(supplierToBeUpdated);
                 return "Supplier record updated.";
             } catch (Exception e){
                 throw e;
@@ -54,13 +53,13 @@ public class SupplierService {
     }
 
     @Transactional
-    public String deleteSupplier(Supplier supplier){
-        if (supplierRepository.existsBySocialSecurityNumber(supplier.getSocialSecurityNumber())){
+    public String deleteSupplier(int id){
+        if (supplierRepository.existsById(id)) {
             try {
-                List<Supplier> suppliers = supplierRepository.findBySocialSecurityNumber(supplier.getSocialSecurityNumber());
-                suppliers.stream().forEach(i -> {
-                    supplierRepository.delete(i);
-                });
+                Supplier supplier = supplierRepository.findById(id).get();
+                if(!supplier.getItems().isEmpty())
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot delete supplier if it has one or more items.");
+                supplierRepository.delete(supplier);
                 return "Supplier record deleted successfully.";
             } catch (Exception e){
                 throw e;

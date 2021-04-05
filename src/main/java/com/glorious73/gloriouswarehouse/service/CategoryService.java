@@ -3,7 +3,9 @@ package com.glorious73.gloriouswarehouse.service;
 import com.glorious73.gloriouswarehouse.entities.Category;
 import com.glorious73.gloriouswarehouse.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -33,38 +35,35 @@ public class CategoryService {
     }
 
     @Transactional
-    public String updateCategory(Category category){
-        if (categoryRepository.existsByName(category.getName())){
+    public String updateCategory(Category category, int id){
+        if (categoryRepository.existsById(id)){
             try {
-                List<Category> categories = categoryRepository.findByName(category.getName());
-                categories.stream().forEach(i -> {
-                    Category categoryToBeUpdated = categoryRepository.findById(i.getId()).get();
-                    categoryToBeUpdated.setName(category.getName());
-                    categoryToBeUpdated.setDescription(category.getDescription());
-                    categoryRepository.save(categoryToBeUpdated);
-                });
+                Category categoryToBeUpdated = categoryRepository.findById(id).get();
+                categoryToBeUpdated.setName(category.getName());
+                categoryToBeUpdated.setDescription(category.getDescription());
+                categoryRepository.save(categoryToBeUpdated);
                 return "Category record updated.";
             } catch (Exception e){
                 throw e;
             }
         } else
-            return "Category does not exists in the database.";
+            return "Category does not exist in the database.";
     }
 
     @Transactional
-    public String deleteCategory(Category category){
-        if (categoryRepository.existsByName(category.getName())){
+    public String deleteCategory(int id){
+        if (categoryRepository.existsById(id)) {
             try {
-                List<Category> categories = categoryRepository.findByName(category.getName());
-                categories.stream().forEach(i -> {
-                    categoryRepository.delete(i);
-                });
+                Category category = categoryRepository.findById(id).get();
+                if(!category.getItems().isEmpty()) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot delete category record if it has one or more items.");
+                }
+                categoryRepository.delete(category);
                 return "Category record deleted successfully.";
             } catch (Exception e){
                 throw e;
             }
-        } else {
+        } else
             return "Category does not exist.";
-        }
     }
 }
