@@ -1,5 +1,7 @@
 package com.glorious73.gloriouswarehouse.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -14,6 +16,7 @@ public class Supplier {
     @Column(unique = true)
     private String socialSecurityNumber;
     @OneToMany(cascade= CascadeType.ALL, mappedBy="supplier",targetEntity=Item.class)
+    @JsonManagedReference
     private Collection<Item> items;
 
     public int getId() {

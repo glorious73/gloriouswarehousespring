@@ -1,5 +1,7 @@
 package com.glorious73.gloriouswarehouse.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,11 +14,17 @@ public class Item {
     private String serialNumber;
     private String name;
     private String base64Image;
-    @ManyToOne @JoinColumn(name="item_id")
+    @ManyToOne @JoinColumn(name="supplier_id")
+    @JsonBackReference
     private Supplier supplier;
 
-    public Item() {
-
+    public Item() { }
+    public Item(int quantity, String serialNumber, String name, String base64Image, Supplier supplier) {
+        this.quantity = quantity;
+        this.serialNumber = serialNumber;
+        this.name = name;
+        this.base64Image = base64Image;
+        this.supplier = supplier;
     }
 
     public int getId() {
