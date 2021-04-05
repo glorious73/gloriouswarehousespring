@@ -14,7 +14,7 @@ public class Category {
     private String name;
     private String description;
     @OneToMany(cascade= CascadeType.ALL, mappedBy="category",targetEntity=Item.class)
-    @JsonManagedReference
+    @JsonManagedReference(value="category")
     private Collection<Item> items;
 
     public int getId() {

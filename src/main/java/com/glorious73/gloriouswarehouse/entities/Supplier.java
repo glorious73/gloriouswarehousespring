@@ -16,7 +16,7 @@ public class Supplier {
     @Column(unique = true)
     private String socialSecurityNumber;
     @OneToMany(cascade= CascadeType.ALL, mappedBy="supplier",targetEntity=Item.class)
-    @JsonManagedReference
+    @JsonManagedReference(value="supplier")
     private Collection<Item> items;
 
     public int getId() {
