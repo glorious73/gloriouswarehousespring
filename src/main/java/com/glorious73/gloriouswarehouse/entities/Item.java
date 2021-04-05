@@ -15,10 +15,10 @@ public class Item {
     private String name;
     private String base64Image;
     @ManyToOne @JoinColumn(name="supplier_id")
-    @JsonBackReference
+    @JsonBackReference(value="supplier")
     private Supplier supplier;
     @ManyToOne @JoinColumn(name="category_id")
-    @JsonBackReference
+    @JsonBackReference(value="category")
     private Category category;
 
     public Item() { }
@@ -55,6 +55,10 @@ public class Item {
         return supplier;
     }
 
+    public Category getCategory() { return category; }
+
+    public void setCategory(Category category) { this.category = category; }
+
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
@@ -79,12 +83,16 @@ public class Item {
         this.name = name;
     }
 
-
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
+                ", quantity=" + quantity +
+                ", serialNumber='" + serialNumber + '\'' +
                 ", name='" + name + '\'' +
+                ", base64Image='" + base64Image + '\'' +
+                ", supplier=" + supplier +
+                ", category=" + category +
                 '}';
     }
 }
