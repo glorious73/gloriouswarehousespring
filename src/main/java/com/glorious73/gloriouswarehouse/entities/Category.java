@@ -1,11 +1,14 @@
 package com.glorious73.gloriouswarehouse.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name="Category")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +16,7 @@ public class Category {
     @Column(unique = true)
     private String name;
     private String description;
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="category",targetEntity=Item.class)
+    @OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL, mappedBy="category",targetEntity=Item.class)
     @JsonManagedReference(value="category")
     private Collection<Item> items;
 

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name="Supplier")
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +16,7 @@ public class Supplier {
     private String companyName;
     @Column(unique = true)
     private String socialSecurityNumber;
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="supplier",targetEntity=Item.class)
+    @OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL, mappedBy="supplier",targetEntity=Item.class)
     @JsonManagedReference(value="supplier")
     private Collection<Item> items;
 

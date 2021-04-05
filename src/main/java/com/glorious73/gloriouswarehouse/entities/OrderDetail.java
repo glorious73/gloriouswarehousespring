@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 // Many To Many relationship table
 @Entity
+@Table(name="OrderDetail")
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

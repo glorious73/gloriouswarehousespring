@@ -7,12 +7,13 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
+@Table(name="ApplicationOrder")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDateTime dateTime;
-    @OneToMany(cascade= CascadeType.ALL, mappedBy="order",targetEntity=OrderDetail.class)
+    @OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL, mappedBy="order",targetEntity=OrderDetail.class)
     @JsonManagedReference(value="order")
     private Collection<OrderDetail> orderDetails;
 
