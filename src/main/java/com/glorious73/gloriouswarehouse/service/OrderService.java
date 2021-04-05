@@ -7,6 +7,7 @@ import com.glorious73.gloriouswarehouse.entities.Item;
 import com.glorious73.gloriouswarehouse.entities.Order;
 import com.glorious73.gloriouswarehouse.entities.OrderDetail;
 import com.glorious73.gloriouswarehouse.repository.ItemRepository;
+import com.glorious73.gloriouswarehouse.repository.OrderDetailRepository;
 import com.glorious73.gloriouswarehouse.repository.OrderRepository;
 import com.glorious73.gloriouswarehouse.repository.SupplierRepository;
 import org.aspectj.weaver.ast.Or;
@@ -27,6 +28,9 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
+    private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
     private ItemRepository itemRepository;
 
     @Transactional
@@ -34,26 +38,29 @@ public class OrderService {
         try {
             // 1. Validate items and quantities
             boolean validOrder = validateOrderItems(orderDTO);
-            // 2. Create OrderDetail for each item (order detail list)
+            // 2. Create Order and save it (to be linked to order details)
+            Order order = new Order();
+            order.setDateTime(orderDTO.localDateTime);
+            Order savedOrder = orderRepository.save(order);
+            // 3. Create OrderDetail for each item (order detail list)
             List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
             for (ItemDTO itemDTO: orderDTO.items) {
-                // 2.1 Create object
+                // 3.1 Create object
                 OrderDetail orderDetail = new OrderDetail();
-                // 2.2 Add item to order detail
+                // 3.2 Add item to order detail
                 Item item = itemRepository.findById(itemDTO.itemId).get();
                 orderDetail.setItem(item);
-                // 2.3 Calculate total price
+                // 3.3 Calculate total price and set fields
                 orderDetail.setItemQuantity(itemDTO.quantity);
                 orderDetail.setTotalPrice(itemDTO.quantity*item.getUnitPrice());
-                // 2.4 Add to order detail list
+                orderDetail.setOrder(savedOrder);
+                OrderDetail savedOrderDetail = orderDetailRepository.save(orderDetail);
+                // 3.4 Update item in DB
+                item.setQuantity(item.getQuantity() - itemDTO.quantity);
+                Item updatedItem = itemRepository.save(item);
+                // 3.5 Add to order detail list
                 orderDetailList.add(orderDetail);
             }
-            // 3. Create Order
-            Order order = new Order();
-            // 4. Add all order details to order
-            order.setOrderDetails(orderDetailList);
-            // 5. Save order and return
-            Order savedOrder = orderRepository.save(order);
             return "Order " + savedOrder.getId() + " created successfully.";
         } catch (Exception e){
             throw e;
