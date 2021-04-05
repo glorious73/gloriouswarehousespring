@@ -48,6 +48,6 @@ You can use the application with Swagger UI by navigating to `http://localhost:8
 ### Example
 Let us add an item using the POST request under the item controller.
 
-[Item Controller POST.png](https://raw.githubusercontent.com/glorious73/gloriouswarehousespring/master/resources/item%20controller%20example.png "Item POST Request using Swagger")
+![Item Controller POST.png](https://raw.githubusercontent.com/glorious73/gloriouswarehousespring/master/resources/item%20controller%20example.png "Item POST Request using Swagger")
 
 As you can see in the snapshot above, you simply need to specify the values to be added in JSON and you can skip the fields `id` as it is auto-generated, and non-mandatory fields of both `supplier` and `category` as the field `id` is only needed to link the item to them.
