@@ -1,8 +1,10 @@
 package com.glorious73.gloriouswarehouse.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Item {
@@ -10,6 +12,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int quantity;
+    private double unitPrice;
     @Column(unique = true)
     private String serialNumber;
     private String name;
@@ -20,10 +23,14 @@ public class Item {
     @ManyToOne @JoinColumn(name="category_id")
     @JsonBackReference(value="category")
     private Category category;
+    @OneToMany(cascade= CascadeType.ALL, mappedBy="item",targetEntity=Item.class)
+    @JsonManagedReference(value="item")
+    private Collection<OrderDetail> orderDetails;
 
     public Item() { }
-    public Item(int quantity, String serialNumber, String name, String base64Image, Supplier supplier, Category category) {
+    public Item(int quantity, double unitPrice, String serialNumber, String name, String base64Image, Supplier supplier, Category category) {
         this.quantity     = quantity;
+        this.unitPrice    = unitPrice;
         this.serialNumber = serialNumber;
         this.name         = name;
         this.base64Image  = base64Image;
@@ -56,6 +63,14 @@ public class Item {
     }
 
     public Category getCategory() { return category; }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 
     public void setCategory(Category category) { this.category = category; }
 
