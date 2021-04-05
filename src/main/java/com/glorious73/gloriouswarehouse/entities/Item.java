@@ -26,7 +26,7 @@ public class Item {
     @JsonBackReference(value="category")
     private Category category;
     @OneToMany(cascade= CascadeType.ALL, mappedBy="item",targetEntity=OrderDetail.class)
-    @JsonIgnore
+    @JsonBackReference(value="item_orderDetail")
     private Collection<OrderDetail> orderDetails;
 
     public Item() { }

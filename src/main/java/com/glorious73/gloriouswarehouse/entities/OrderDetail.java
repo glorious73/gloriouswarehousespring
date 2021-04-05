@@ -2,6 +2,7 @@ package com.glorious73.gloriouswarehouse.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -16,7 +17,7 @@ public class OrderDetail {
     @JsonBackReference(value="order")
     private Order order;
     @ManyToOne @JoinColumn(name="item_id", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonManagedReference(value="item_orderDetail")
     private Item item;
     // Relationship fields
     private int itemQuantity;
