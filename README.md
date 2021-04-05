@@ -11,6 +11,7 @@ This warehouse management system has the following entities:
 - Item
 - Category
 - Supplier
+
 Each item can optionally have one category and one supplier, and each category and/or supplier can have many items.
 ## Database
 The DB Schema can be found below:
