@@ -4,10 +4,7 @@ import com.glorious73.gloriouswarehouse.entities.Category;
 import com.glorious73.gloriouswarehouse.service.CategoryService;
 import com.glorious73.gloriouswarehouse.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,13 +24,13 @@ public class CategoryController {
         return categoryService.readCategories();
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public String updateItem(@RequestBody Category category){
-        return categoryService.updateCategory(category);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public String updateItem(@RequestBody Category category, @PathVariable int id){
+        return categoryService.updateCategory(category, id);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public String deleteItem(@RequestBody Category category){
-        return categoryService.deleteCategory(category);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String deleteItem(@PathVariable int id){
+        return categoryService.deleteCategory(id);
     }
 }

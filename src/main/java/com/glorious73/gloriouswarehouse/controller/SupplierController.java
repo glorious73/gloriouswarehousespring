@@ -3,10 +3,7 @@ package com.glorious73.gloriouswarehouse.controller;
 import com.glorious73.gloriouswarehouse.entities.Supplier;
 import com.glorious73.gloriouswarehouse.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,22 +14,22 @@ public class SupplierController {
     private SupplierService supplierService;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String createItem(@RequestBody Supplier supplier){
+    public String createSupplier(@RequestBody Supplier supplier){
         return supplierService.createSupplier(supplier);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Supplier> readItems(){
+    public List<Supplier> readSupplier(){
         return supplierService.readSuppliers();
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public String updateItem(@RequestBody Supplier supplier){
-        return supplierService.updateSupplier(supplier);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public String updateSupplier(@RequestBody Supplier supplier, @PathVariable int id){
+        return supplierService.updateSupplier(supplier, id);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public String deleteItem(@RequestBody Supplier supplier){
-        return supplierService.deleteSupplier(supplier);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String deleteSupplier(@PathVariable int id){
+        return supplierService.deleteSupplier(id);
     }
 }

@@ -3,10 +3,7 @@ package com.glorious73.gloriouswarehouse.controller;
 import com.glorious73.gloriouswarehouse.entities.Item;
 import com.glorious73.gloriouswarehouse.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,13 +23,11 @@ public class ItemController {
         return itemService.readItems();
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public String updateItem(@RequestBody Item item){
-        return itemService.updateItem(item);
-    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public String updateItem(@RequestBody Item item, @PathVariable int id){ return itemService.updateItem(item, id); }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
-    public String deleteItem(@RequestBody Item item){
-        return itemService.deleteItem(item);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String deleteItem(@PathVariable int id){
+        return itemService.deleteItem(id);
     }
 }
