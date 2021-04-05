@@ -42,6 +42,7 @@ public class SupplierService {
                 Supplier supplierToBeUpdated = supplierRepository.findById(id).get();
                 supplierToBeUpdated.setFirstName(supplier.getFirstName());
                 supplierToBeUpdated.setLastName(supplier.getLastName());
+                supplierToBeUpdated.setCompanyName(supplier.getCompanyName());
                 supplierToBeUpdated.setSocialSecurityNumber(supplier.getSocialSecurityNumber());
                 supplierRepository.save(supplierToBeUpdated);
                 return "Supplier record updated.";
