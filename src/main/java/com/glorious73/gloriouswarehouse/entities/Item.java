@@ -17,14 +17,18 @@ public class Item {
     @ManyToOne @JoinColumn(name="supplier_id")
     @JsonBackReference
     private Supplier supplier;
+    @ManyToOne @JoinColumn(name="category_id")
+    @JsonBackReference
+    private Category category;
 
     public Item() { }
-    public Item(int quantity, String serialNumber, String name, String base64Image, Supplier supplier) {
-        this.quantity = quantity;
+    public Item(int quantity, String serialNumber, String name, String base64Image, Supplier supplier, Category category) {
+        this.quantity     = quantity;
         this.serialNumber = serialNumber;
-        this.name = name;
-        this.base64Image = base64Image;
-        this.supplier = supplier;
+        this.name         = name;
+        this.base64Image  = base64Image;
+        this.supplier     = supplier;
+        this.category     = category;
     }
 
     public int getId() {
