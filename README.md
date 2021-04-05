@@ -3,14 +3,21 @@
 A simple warehouse management system developed using Java, SpringBoot, JPA, and Postgres SQL. 
 ## Project
 ### User Stories
-- A user can add, remove, edit, and list items in the system.
 - A user can add, remove, edit, and list categories in the system.
 - A user can add, remove, edit, and list supplier records in the system.
+- A user can add, remove, edit, and list items in the system, and link each item to one category and/or supplier.
+- A user can add and list orders in the system in such a way items are taken from the warehouse when a new order is placed.
+   - An order can have one or more items.
+   - The quantity of each ordered item must be less than the current quantity of the item.
+   - The quantity of each ordered item must be greater than 0.
+   - Each item in the order must exist in the database prior to ordering.
 ### Entities
 This warehouse management system has the following entities:
 - Item
 - Category
 - Supplier
+- Order (application_order)
+- Order Detail
 
 Each item can optionally have one category and one supplier, and each category and/or supplier can have many items.
 ## Database
@@ -30,7 +37,7 @@ To run the application locally, please follow the steps below:
 
 5- Open the project in an IDE of your choice (I used Intellij IDEA CE 2020.3).
 
-6- Open `pom.xml` and download the sources needed to run the application.
+6- Open `pom.xml` and download the dependency sources from maven which are needed to run the application.
 
 7- Hit the "Run" button to start the application.
 
