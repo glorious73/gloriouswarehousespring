@@ -16,22 +16,22 @@ public class SupplierController {
     @Autowired
     private SupplierService supplierService;
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String createItem(@RequestBody Supplier supplier){
         return supplierService.createSupplier(supplier);
     }
 
-    @RequestMapping(value = "read", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Supplier> readItems(){
         return supplierService.readSuppliers();
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public String updateItem(@RequestBody Supplier supplier){
         return supplierService.updateSupplier(supplier);
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public String deleteItem(@RequestBody Supplier supplier){
         return supplierService.deleteSupplier(supplier);
     }

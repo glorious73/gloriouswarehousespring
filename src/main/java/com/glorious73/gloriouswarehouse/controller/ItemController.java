@@ -16,22 +16,22 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String createItem(@RequestBody Item item){
         return itemService.createItem(item);
     }
 
-    @RequestMapping(value = "read", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Item> readItems(){
         return itemService.readItems();
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public String updateItem(@RequestBody Item item){
         return itemService.updateItem(item);
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public String deleteItem(@RequestBody Item item){
         return itemService.deleteItem(item);
     }
