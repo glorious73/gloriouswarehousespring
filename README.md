@@ -51,3 +51,10 @@ Let us add an item using the POST request under the item controller.
 ![Item Controller POST.png](https://raw.githubusercontent.com/glorious73/gloriouswarehousespring/master/resources/item%20controller%20example.png "Item POST Request using Swagger")
 
 As you can see in the snapshot above, you simply need to specify the values to be added in JSON and you can skip the fields `id` as it is auto-generated, and non-mandatory fields of both `supplier` and `category` as the field `id` is only needed to link the item to them.
+
+## Improvement
+This system has room for improvement, and the following features can be added to improve it:
+1. Keep record of the customer who requested an order.
+2. Add accounts for customers and accounts for admin users.
+   - Add authentication and authroization for those accounts. A simple yet secure way to do this would be by using [Json Web Tokens](https://jwt.io/).
+3. Create a frontend for the application. Dashboard and authentication pages would make sense for such an application.
