@@ -13,6 +13,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDateTime dateTime;
+    private String customerName;
+    private String customerEmail;
+    private String customerPhoneNumber;
     @OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL, mappedBy="order",targetEntity=OrderDetail.class)
     @JsonManagedReference(value="order")
     private Collection<OrderDetail> orderDetails;
@@ -31,6 +34,30 @@ public class Order {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public String getCustomerPhoneNumber() {
+        return customerPhoneNumber;
+    }
+
+    public void setCustomerPhoneNumber(String customerPhoneNumber) {
+        this.customerPhoneNumber = customerPhoneNumber;
     }
 
     public Collection<OrderDetail> getOrderDetails() {
