@@ -40,11 +40,14 @@ public class OrderService {
             boolean validOrder = validateOrderItems(orderDTO);
             // 2. Create Order and save it (to be linked to order details)
             Order order = new Order();
-            order.setDateTime(orderDTO.localDateTime);
+            order.setDateTime(orderDTO.getLocalDateTime());
+            order.setCustomerName(orderDTO.getCustomerName());
+            order.setCustomerPhoneNumber(orderDTO.getCustomerPhoneNumber());
+            order.setCustomerEmail(orderDTO.getCustomerEmail());
             Order savedOrder = orderRepository.save(order);
             // 3. Create OrderDetail for each item (order detail list)
             List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
-            for (ItemDTO itemDTO: orderDTO.items) {
+            for (ItemDTO itemDTO: orderDTO.getItems()) {
                 // 3.1 Create object
                 OrderDetail orderDetail = new OrderDetail();
                 // 3.2 Add item to order detail
@@ -79,7 +82,7 @@ public class OrderService {
 
     private boolean validateOrderItems(OrderDTO orderDTO) {
         try {
-            for (ItemDTO itemDTO: orderDTO.items) {
+            for (ItemDTO itemDTO: orderDTO.getItems()) {
                 // 1. Validate positive quantity
                 if(itemDTO.quantity <= 0)
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The quantity of each item must be positive.");
