@@ -32,6 +32,9 @@ public class ItemController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateItem(@RequestBody Item item, @PathVariable int id){ return itemService.updateItem(item, id); }
 
+    @RequestMapping(value = "/{id}/quantity/{quantity}", method = RequestMethod.PUT)
+    public String updateItemQuantity(@PathVariable int id, @PathVariable int quantity){ return itemService.updateItemQuantity(id, quantity); }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteItem(@PathVariable int id){
         return itemService.deleteItem(id);

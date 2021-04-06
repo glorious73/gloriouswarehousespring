@@ -53,7 +53,28 @@ public class ItemService {
                 throw e;
             }
         } else
-            return "Item does not exists in the database.";
+            return "Item does not exist in the database.";
+    }
+
+    @Transactional
+    public String updateItemQuantity(int id, int quantity) {
+        try {
+            if (itemRepository.existsById(id)){ 
+                if(quantity > 0) {
+                    Item itemToBeUpdated = itemRepository.findById(id).get();
+                    itemToBeUpdated.setQuantity(quantity);
+                    itemRepository.save(itemToBeUpdated);
+                    return "Item quantity updated by " + quantity + ".";
+                }
+                else
+                    return "New quantity must be positive.";
+            }
+            else 
+                return "Item does not exist in the database";
+        }
+        catch(Exception ex) {
+            throw ex;
+        }
     }
 
     @Transactional
