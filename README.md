@@ -58,3 +58,5 @@ This system has room for improvement, and the following features can be added to
 1. Add accounts for customers and accounts for admin users.
    - Add authentication and authroization for those accounts. A simple yet secure way to do this would be by using [Json Web Tokens](https://jwt.io/).
 2. Create a frontend for the application. Dashboard and authentication pages would make sense for such an application.
+3. Add option for payment for each order, which includes currency and payment type.
+4. Add filtering based on field matching and field containing text, and add search functionality for all entities in the system.
