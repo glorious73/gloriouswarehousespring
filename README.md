@@ -6,6 +6,7 @@ A simple warehouse management system developed using Java, SpringBoot, JPA, and 
 - A user can add, remove, edit, and list categories in the system.
 - A user can add, remove, edit, and list supplier records in the system.
 - A user can add, remove, edit, and list items in the system, and link each item to one category and/or supplier.
+   - A user can add to the quantity of an item in the system.
 - A user can add and list orders in the system in such a way items are taken from the warehouse when a new order is placed.
    - An order can have one or more items.
    - The quantity of each ordered item must be less than the current quantity of the item.
@@ -54,7 +55,6 @@ As you can see in the snapshot above, you simply need to specify the values to b
 
 ## Improvement
 This system has room for improvement, and the following features can be added to improve it:
-1. Keep record of the customer who requested an order.
-2. Add accounts for customers and accounts for admin users.
+1. Add accounts for customers and accounts for admin users.
    - Add authentication and authroization for those accounts. A simple yet secure way to do this would be by using [Json Web Tokens](https://jwt.io/).
-3. Create a frontend for the application. Dashboard and authentication pages would make sense for such an application.
+2. Create a frontend for the application. Dashboard and authentication pages would make sense for such an application.
