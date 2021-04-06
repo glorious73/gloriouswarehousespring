@@ -30,6 +30,10 @@ public class CategoryService {
         }
     }
 
+    public Category readById(int id) {
+        return categoryRepository.findById(id).get();
+    }
+
     public List<Category> readCategories() {
         return categoryRepository.findAll();
     }

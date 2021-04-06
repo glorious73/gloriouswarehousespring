@@ -19,8 +19,13 @@ public class CategoryController {
         return categoryService.createCategory(category);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Category readCategory(@PathVariable int id){
+        return categoryService.readById(id);
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Category> readItems(){
+    public List<Category> readCategories(){
         return categoryService.readCategories();
     }
 

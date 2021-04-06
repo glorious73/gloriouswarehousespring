@@ -1,5 +1,6 @@
 package com.glorious73.gloriouswarehouse.service;
 
+import com.glorious73.gloriouswarehouse.entities.Category;
 import com.glorious73.gloriouswarehouse.entities.Supplier;
 import com.glorious73.gloriouswarehouse.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class SupplierService {
         } catch (Exception e){
             throw e;
         }
+    }
+
+    public Supplier readById(int id) {
+        return supplierRepository.findById(id).get();
     }
 
     public List<Supplier> readSuppliers(){

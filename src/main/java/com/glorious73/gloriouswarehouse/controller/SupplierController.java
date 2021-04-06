@@ -1,5 +1,6 @@
 package com.glorious73.gloriouswarehouse.controller;
 
+import com.glorious73.gloriouswarehouse.entities.Category;
 import com.glorious73.gloriouswarehouse.entities.Supplier;
 import com.glorious73.gloriouswarehouse.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,13 @@ public class SupplierController {
         return supplierService.createSupplier(supplier);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Supplier readSupplier(@PathVariable int id){
+        return supplierService.readById(id);
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<Supplier> readSupplier(){
+    public List<Supplier> readSuppliers(){
         return supplierService.readSuppliers();
     }
 
